@@ -3,19 +3,19 @@ on:
   pull_request:
   push:
     branches:
-        - main
+      - main
 env:
- # platforms: Dockerfile
+  # platforms: Dockerfile
   scanTypes: iac-security,sast,sca
-  threshold: iac-security-high=1=,iac-security-medium=1,iac-securitylow=1    
+  threshold: iac-security-high=1=,iac-security-medium=1,iac-securitylow=1
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
-      - name: Sonar CLI Action 
-        uses: sonarsource/sonarqube-scan-action@master
+      - name: Sonar CLI Action
+        uses: sonarsource/sonarqube-scan-action@4
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
@@ -23,6 +23,3 @@ jobs:
         with:
           args: >
             -Dsonar.externalIssuesReportPaths=./cx_result_sonar.json
-    
-         
-     
